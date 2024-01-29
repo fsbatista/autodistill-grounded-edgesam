@@ -34,8 +34,8 @@ def check_dependencies():
         subprocess.run(["pip", "install", "-r", "requirements.txt"])
         subprocess.run(["pip3", "install", "-e", "."])
 
-    # os.chdir("EdgeSAM")
-    # subprocess.run(["pip3", "install", "-e", "."])
+    os.chdir("EdgeSAM")
+    subprocess.run(["pip3", "install", "-e", "."])
 
     from segment_anything import SamPredictor
     from segment_anything.build_sam import sam_model_registry
