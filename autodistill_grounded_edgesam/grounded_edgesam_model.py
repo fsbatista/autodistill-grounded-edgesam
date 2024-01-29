@@ -19,7 +19,7 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 def check_dependencies():
     # Create the ~/.cache/autodistill directory if it doesn't exist
     original_dir = os.getcwd()
-    autodistill_dir = os.path.expanduser("~/.cache/autodistill")
+    autodistill_dir = os.path.expanduser("sam_cache/autodistill")
     os.makedirs(autodistill_dir, exist_ok=True)
 
     os.chdir(autodistill_dir)
@@ -34,13 +34,20 @@ def check_dependencies():
         subprocess.run(["pip", "install", "-r", "requirements.txt"])
         subprocess.run(["pip3", "install", "-e", "."])
 
+    # os.chdir("EdgeSAM")
+    # subprocess.run(["pip3", "install", "-e", "."])
+
     from segment_anything import SamPredictor
     from segment_anything.build_sam import sam_model_registry
+
+    import segment_anything
+
+    print(os.path.abspath(segment_anything.__file__))
 
     print("Loading EdgeSAM...")
     # Check if segment-anything library is already installed
 
-    AUTODISTILL_CACHE_DIR = os.path.expanduser("~/.cache/autodistill")
+    AUTODISTILL_CACHE_DIR = os.path.expanduser(os.path.join(original_dir,"sam_cache/autodistill"))
     SAM_CACHE_DIR = os.path.join(AUTODISTILL_CACHE_DIR, "segment_anything")
     SAM_CHECKPOINT_PATH = os.path.join(SAM_CACHE_DIR, "edge_sam.pth")
 
